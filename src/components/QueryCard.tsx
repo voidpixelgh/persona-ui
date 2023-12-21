@@ -29,15 +29,7 @@ function QueryCard() {
   });
 
   const onSubmit = (data: {}) => {
-    console.log(data);
-
-    let query = {
-        birthplace: data.birthplace,
-        dateOfBirth: data.dateOfBirth.toLocaleString('en-US')
-    }
-
-    console.log(query);
-    mutation.mutate(query);
+    mutation.mutate(data);
   };
 
   return (
@@ -49,65 +41,64 @@ function QueryCard() {
         {/* Location Input */}
         <div className="flex flex-col w-1/3">
           <label
-            htmlFor="birthplace"
+            htmlFor="query"
             className="block text-sm font-medium text-gray-700 mb-1 text-left"
           >
-            Birthplace
+            Try to find something about your persona
           </label>
           <Controller
-            name="birthplace"
+            name="query"
             control={control}
             defaultValue=""
             render={({ field }) => (
               <Input
-                {...register("birthplace", { required: true })}
+                {...register("query", { required: true })}
                 type="text"
                 color="indigo"
                 size="md"
                 variant="outlined"
                 /* outline={true} */
-                placeholder="Birthplace"
+                placeholder="query"
               />
             )}
           />
-          {errors.birthplace && (
+          {errors.query && (
             <span className="text-red-500 text-left">
-              Birthplace is required.
+              Query is required.
             </span>
           )}{" "}
           {/* Error Message */}
         </div>
 
-        {/* Date and Time Picker */}
-        <div className="flex flex-col">
+        <div className="flex flex-col w-1/3">
           <label
-            htmlFor="dateOfBirth"
+            htmlFor="img"
             className="block text-sm font-medium text-gray-700 mb-1 text-left"
           >
-            Date of Birth
+            Insert the URL of the image
           </label>
           <Controller
+            name="img"
             control={control}
-            name="dateOfBirth"
-            rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value, name, ref } }) => (
-              <DatePicker
-                onChange={onChange}
-                onBlur={onBlur}
-                selected={value}
-                showTimeSelect
-                dateFormat="Pp"
-                className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                ref={ref}
-                placeholderText="MM/DD/YYYY"
+            defaultValue=""
+            render={({ field }) => (
+              <Input
+                {...register("img")}
+                type="text"
+                color="indigo"
+                size="md"
+                variant="outlined"
+                /* outline={true} */
+                placeholder="img"
               />
             )}
           />
-          {errors.dateOfBirth && (
+          {errors.img && (
             <span className="text-red-500 text-left">
-              Date of birth is required.
+              Query is required.
             </span>
-          )}
+          )}{" "}
+          {/* Error Message */}
         </div>
 
         {/* Submit Button */}
@@ -117,7 +108,7 @@ function QueryCard() {
           ) : (
             <button
               type="submit"
-              className="btn bg-green-900 text-white rounded-md px-4 py-2 mt-2"
+              className="btn bg-indigo-800 text-white rounded-md px-4 py-2 mt-2"
             >
               Submit
             </button>
